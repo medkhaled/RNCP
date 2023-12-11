@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conexion{% endblock %}
+
+{% block body %}
+   {% if error %}
+    <div>
+        {% if error.messageKey == 'Bad credentials' %}
+           <div class="alert alert-danger">
+                 Mauvaises informations d'identification. Veuillez réessayer.
+            </div>
+        {% elseif error.messageKey == 'Username could not be found.' %}
+            <div class="alert alert-danger">
+                L'utilisateur n'existe pas.
+            </div>
+        {% else %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+
+    <style>
+    /* Apply a simple responsive design */
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+    }
+
+    button {
+        
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    /* Add media query for smaller screens */
+    @media (max-width: 600px) {
+        form {
+            max-width: 100%;
+        }
+    }
+</style>
+<div class="container mb-5 mt-5">
+    <form action="{{ path('app_login') }}" method="post">
+    <label for="username">Email:</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}">
+
+    <label for="password">Mot de passe:</label>
+    <input type="password" id="password" name="_password">
+
+    {# If you want to control the URL the user is redirected to on success
+    <input type="hidden" name="_target_path" value="/account"> #}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    <button type="submit" class="btn btn-success btn-lg my-3">Connecter</button>
+    <a href="{{ path('app_register') }}" class="btn btn-secondary btn-lg my-3">M'inscrire</a>
+</form>
+
+</div>
+
+
+{% endblock %}
