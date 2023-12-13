@@ -50,6 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: Types::DATE_MUTABLE,nullable: true)]
     private ?\DateTimeInterface $created_at = null;
+
    
     #[ORM\Column]
     private ?bool $isVerified = false;
@@ -198,7 +199,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
     public function getCreatedAt(): ?\DateTimeImmutable
     {
-        return $this->created_at;
+        return $this->created_at instanceof \DateTimeInterface
+            ? \DateTimeImmutable::createFromMutable($this->created_at)
+            : null;
     }
 
     public function isIsVerified(): ?bool
@@ -214,6 +217,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     public function getEmployeeid(): ?self
+    {
+        return $this->employee;
+    }
+     public function getEmployee(): ?self
     {
         return $this->employee;
     }
@@ -236,5 +243,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-   
+
 }

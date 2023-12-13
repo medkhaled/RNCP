@@ -50,7 +50,7 @@
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            <a class="nav-link navlinks" href="#">Administration</a>
+                            <a class="nav-link navlinks" href="{{ path('app_admin_index') }}">Administration</a>
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_EMPLOYEE') %}
