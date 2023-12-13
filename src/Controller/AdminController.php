@@ -43,9 +43,7 @@ class AdminController extends AbstractController
                 $employeeId = $userRepository->findEmployeeIdWithMinUserCount();
                 if ($employeeId) {
                     $employeeId = $employeeId[0]->getEmployeeid()->getId();
-                    
-                    $employee = $entityManager->getReference('App\Entity\User', $employeeId);
-                    
+                    $employee = $entityManager->getReference('App\Entity\User', $employeeId);  
                 }
             }elseif ($role == 'ROLE_EMPLOYEE'){
                 $employee = $entityManager->getReference('App\Entity\User', $id);
