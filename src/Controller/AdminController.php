@@ -11,17 +11,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-
+use Knp\Component\Pager\PaginatorInterface;
 #[Route('/admin')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'app_admin_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
-    {
-        return $this->render('admin/index.html.twig', [
-            'users' => $userRepository->findAll(),
-        ]);
-    }
+    public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
+{
+    $pagination = $paginator->paginate(
+        $userRepository->findAll(),
+        $request->query->getInt('page', 1), // numéro de page
+        10 // nombre d'éléments par page
+    );
+
+    return $this->render('admin/index.html.twig', [
+        'pagination' => $pagination,
+    ]);
+}
 
     #[Route('/new', name: 'app_admin_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager ,UserPasswordHasherInterface $userPasswordHasher,UserRepository $userRepository): Response
