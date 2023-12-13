@@ -3,53 +3,94 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+<style>
+/* Styles pour la pagination personnalisée */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+}
 
+.pagination li {
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+.pagination a,
+.pagination span {
+    display: block;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination .active a,
+.pagination .active span {
+    background-color: #007bff;
+    color: #fff;
+}
+
+</style>
+    <h1>Liste des utilisatuers</h1>
+     <a href="{{ path('app_admin_new') }}" class="btn btn-success btn-lg my-3">Ajouter un Utilisateur</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
-                <th>Lastname</th>
-                <th>Firstname</th>
-                <th>Address</th>
-                <th>Zipcode</th>
-                <th>City</th>
-                <th>Created_at</th>
+                
+                <th>Nom</th>
+                <th>Prénom</th>
+
+                <th>Code postale</th>
+                <th>Ville</th>
+                <th>date de création</th>
                 <th>IsVerified</th>
                 <th>Matricule</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for user in users %}
+        {% for user in pagination %}
             <tr>
                 <td>{{ user.id }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
+                
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.firstname }}</td>
-                <td>{{ user.address }}</td>
+    
                 <td>{{ user.zipcode }}</td>
                 <td>{{ user.city }}</td>
                 <td>{{ user.createdAt ? user.createdAt|date('Y-m-d') : '' }}</td>
                 <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
                 <td>{{ user.matricule }}</td>
                 <td>
-                    <a href="{{ path('app_admin_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_admin_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_admin_show', {'id': user.id}) }}" class="btn btn-dark">Voir</a>
+                    <a href="{{ path('app_admin_edit', {'id': user.id}) }}"class="btn btn-warning">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="13">no records found</td>
+                <td colspan="13">pas des utilisatuers</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_admin_new') }}">Create new</a>
+    <a href="{{ path('app_admin_new') }}" class="btn btn-success btn-lg my-3">Ajouter un Utilisateur</a>
+<div class="pagination mt-4 mb-5">
+    {{ knp_pagination_render(pagination) }}
+</div>
+   
 {% endblock %}
