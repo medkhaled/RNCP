@@ -37,17 +37,20 @@ class AdminController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            $entityManager->persist($user);
+            $entityManager->flush();
             $role = $user->getRoles();
             $id = $user->getId();
-            if ($role == 'ROLE_USER') {
-                $employeeId = $userRepository->findEmployeeIdWithMinUserCount();
-                if ($employeeId) {
+            // dd($id, $role);
+            if  (in_array('ROLE_EMPLOYEE', $role)){
+                    $employee = $entityManager->getReference('App\Entity\User', $id);
+            }elseif(in_array('ROLE_USER', $role)) {
+                    $employeeId = $userRepository->findEmployeeIdWithMinUserCount();
                     $employeeId = $employeeId[0]->getEmployeeid()->getId();
-                    $employee = $entityManager->getReference('App\Entity\User', $employeeId);  
+                    $employee = $entityManager->getReference('App\Entity\User', $employeeId);     
+                    
                 }
-            }elseif ($role == 'ROLE_EMPLOYEE'){
-                $employee = $entityManager->getReference('App\Entity\User', $id);
-            }   
             $user->setEmployeeid($employee);
             $entityManager->persist($user);
             $entityManager->flush();
