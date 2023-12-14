@@ -26,6 +26,14 @@ class Notes
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $evaluationDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'notes')]
+    private ?Product $product = null;
+
+    #[ORM\ManyToOne(inversedBy: 'notes')]
+    private ?User $user = null;
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,4 +86,32 @@ class Notes
 
         return $this;
     }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): static
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    
+
+    
 }

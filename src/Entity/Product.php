@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,25 @@ class Product
 
     #[ORM\Column(nullable: true)]
     private ?bool $isVerified = null;
+
+    #[ORM\ManyToOne(inversedBy: 'productid')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
+
+ 
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: images::class)]
+    private Collection $imageid;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: notes::class)]
+    private Collection $notes;
+
+    public function __construct()
+    {
+        
+        $this->imageid = new ArrayCollection();
+        $this->notes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -105,6 +126,81 @@ class Product
     public function setIsVerified(?bool $isVerified): static
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+
+   
+
+    /**
+     * @return Collection<int, images>
+     */
+    public function getImageid(): Collection
+    {
+        return $this->imageid;
+    }
+
+    public function addImageid(images $imageid): static
+    {
+        if (!$this->imageid->contains($imageid)) {
+            $this->imageid->add($imageid);
+            $imageid->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImageid(images $imageid): static
+    {
+        if ($this->imageid->removeElement($imageid)) {
+            // set the owning side to null (unless already changed)
+            if ($imageid->getProduct() === $this) {
+                $imageid->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, notes>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(notes $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(notes $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getProduct() === $this) {
+                $note->setProduct(null);
+            }
+        }
 
         return $this;
     }
