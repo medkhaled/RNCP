@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -63,10 +65,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $matricule = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notes::class)]
+    private Collection $notes;
+
     public function __construct()
     {
         // Initialisez la date de création lors de la création de l'objet
         $this->created_at =  new \DateTime();
+        $this->notes = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -240,6 +246,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setMatricule(?string $matricule): static
     {
         $this->matricule = $matricule;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notes>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Notes $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Notes $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getUser() === $this) {
+                $note->setUser(null);
+            }
+        }
 
         return $this;
     }
