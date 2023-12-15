@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace Employée{% endblock %}
+
+{% block body %}
+
+<div class="container d-flex justify-content-between mt-5 mb-5">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Mes Clients</h5>
+            <p class="card-text">Afficher et gérer mes clients</p>
+            <a href="{{ path('app_admin_index') }}" class="btn btn-primary">Go</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Catlaogues</h5>
+            <p class="card-text">Afficher et gérer les catégories</p>
+            <a href="{{ path('app_category_index') }}" class="btn btn-primary">Go</a>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Produits</h5>
+            <p class="card-text">Afficher et gérer les produits</p>
+            <a href="{{ path('app_product_index') }}" class="btn btn-primary">Go</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
