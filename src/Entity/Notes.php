@@ -33,7 +33,12 @@ class Notes
     private ?User $user = null;
 
 
-
+    public function __construct()
+    {
+        // Initialisez la date de création lors de la création de l'objet
+        $this->evaluationDate =  new \DateTimeImmutable();
+     
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -80,12 +85,6 @@ class Notes
         return $this->evaluationDate;
     }
 
-    public function setEvaluationDate(\DateTimeInterface $evaluationDate): static
-    {
-        $this->evaluationDate = $evaluationDate;
-
-        return $this;
-    }
 
     public function getProduct(): ?Product
     {

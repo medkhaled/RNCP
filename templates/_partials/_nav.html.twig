@@ -55,7 +55,7 @@
                     {% endif %}
                     {% if is_granted('ROLE_EMPLOYEE') %}
                         <li class="nav-item">
-                            <a class="nav-link navlinks" href="#">Intranet</a>
+                            <a class="nav-link navlinks" href="{{ path('app_intranet') }}">Intranet</a>
                         </li>
                     {% endif %}
                 </ul>

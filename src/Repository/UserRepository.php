@@ -86,4 +86,18 @@ public function findEmployeeIdWithMinUserCount()
 
         // return $result[0]['employee_id'] ?? null;
     }
+/**
+     * Retourne tous les utilisateurs associés à un employé donné.
+     *
+     * @param int $employeeId L'identifiant de l'employé
+     * @return User[] Un tableau d'utilisateurs
+     */
+    public function findByEmployeeId(int $employeeId): array
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.employee = :employeeId')
+            ->setParameter('employeeId', $employeeId)
+            ->getQuery()
+            ->getResult();
+    }
 }

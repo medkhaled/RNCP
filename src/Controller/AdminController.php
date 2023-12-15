@@ -12,18 +12,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Knp\Component\Pager\PaginatorInterface;
-#[Route('/admin')]
+use Symfony\Component\Security\Core\Security;
+#[Route('/user')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'app_admin_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request): Response
+    public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request,Security $security): Response
 {
+    if ($this->isGranted('ROLE_ADMIN')) {
     $pagination = $paginator->paginate(
+        
         $userRepository->findAll(),
         $request->query->getInt('page', 1), // numéro de page
         10 // nombre d'éléments par page
     );
-
+        }elseif($this->isGranted('ROLE_EMPLOYEE')){
+             $currentUser = $this->getUser();
+              if (!$currentUser || !$currentUser instanceof User) {
+                return $this->redirectToRoute('app_login');
+              }
+            $userId = $currentUser->getId();          
+            $pagination = $paginator->paginate(
+                $userRepository->findByEmployeeId($userId),
+                
+                $request->query->getInt('page', 1), // numéro de page
+                10 // nombre d'éléments par page
+            );
+            }
     return $this->render('admin/index.html.twig', [
         'pagination' => $pagination,
     ]);
@@ -43,20 +58,23 @@ class AdminController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            // Forcer le rôle ROLE_USER
+            $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
             $role = $user->getRoles();
             $id = $user->getId();
             // dd($id, $role);
-            if  (in_array('ROLE_EMPLOYEE', $role)){
+            
+                if (($this->isGranted('ROLE_ADMIN'))&&  (in_array('ROLE_EMPLOYEE', $role))){
                     $employee = $entityManager->getReference('App\Entity\User', $id);
-            }elseif(in_array('ROLE_USER', $role)) {
+                }elseif(in_array('ROLE_USER', $role)) {
                     $employeeId = $userRepository->findEmployeeIdWithMinUserCount();
                     $employeeId = $employeeId[0]->getEmployeeid()->getId();
                     $employee = $entityManager->getReference('App\Entity\User', $employeeId);     
                     
                 }
+            
             $user->setEmployeeid($employee);
             $entityManager->persist($user);
             $entityManager->flush();
