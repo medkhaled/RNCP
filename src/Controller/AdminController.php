@@ -58,7 +58,8 @@ class AdminController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            // Forcer le rôle ROLE_USER
+            $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
             $role = $user->getRoles();
@@ -74,13 +75,7 @@ class AdminController extends AbstractController
                     
                 }
             
-                $user->setEmployeeid($employee);
-                }else{
-                    
-                    $user->setRoles(['ROLE_USER']);
-            
-            
-            
+            $user->setEmployeeid($employee);
             $entityManager->persist($user);
             $entityManager->flush();
 
