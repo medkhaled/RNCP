@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Panier!{% endblock %}
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                <th></th>
+                    <th>Produit</th>
+                    <th></th>
+                    <th>Prix</th>
+                    <th></th>
+                    <th>Quantité</th>
+                    <th></th>
+                    <th>Total</th>
+                    <th></th>
+                    <th>Action</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for element  in data  %}
+                    <tr>
+                        <td></td>
+                        <td> {{ element.product.name }} </td>
+                        <td></td>
+                        <td> {{ element.product.price }} € </td>
+                        <td></td>
+                        <td>  {{ element.quantity }} </td>
+                        <td></td>
+                        <td> {{ element.quantity * element.product.price }} €</td>
+                        <td></td>
+                        <td> 
+                            <a href="{{ path('cart_add' , { id: element.product.id }) }}" class="bouton-lien">+<a/>
+                            <a href="{{ path('cart_remove' , { id: element.product.id }) }}" class="bouton-lien">-<a/>
+                            <a href="{{ path('cart_remove' , { id: element.product.id }) }}" class="bouton-lien">supprimer<a/>
+                        </td>
+                        <td></td>
+                    </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5"> Votre panier est vide <td/>
+                </tr>         
+                {% endfor %}    
+            </tbody>
+            <tfoot>
+                <tr>
+                <td colspan="3">Total</td>
+                <td> {{ total }} </td>
+                <td>
+                    <a href="{{ path('cart_empty' )}}" class="bouton-lien" >Vider</a>
+                </td>
+        </table>  
+    </div>
+
+
+
+        
+
+            
+      
+{% endblock %}
