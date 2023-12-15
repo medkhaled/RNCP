@@ -53,6 +53,7 @@ class Category
     {
         return $this->productid;
     }
+    
 
     public function addProductid(Product $productid): static
     {
