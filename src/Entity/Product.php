@@ -48,7 +48,7 @@ class Product
 
     public function __construct()
     {
-        
+        $this->createdAt = new \DateTimeImmutable();
         $this->imageid = new ArrayCollection();
         $this->notes = new ArrayCollection();
     }
@@ -111,12 +111,7 @@ class Product
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
-    {
-        $this->createdAt = $createdAt;
 
-        return $this;
-    }
 
     public function isIsVerified(): ?bool
     {

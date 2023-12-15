@@ -46,7 +46,7 @@ security:
         ROLE_EMPLOYEE:       ROLE_USER
         ROLE_ADMIN: [ROLE_EMPLOYEE, ROLE_ALLOWED_TO_SWITCH]
     access_control:
-        - { path: '^/admin', roles: ROLE_ADMIN }
+        - { path: '^/user', roles: ROLE_EMPLOYEE }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/employee, roles: ROLE_EMPLOYEE }
         #- { path: ^/api, roles: ROLE_USER }

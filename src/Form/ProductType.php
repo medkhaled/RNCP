@@ -15,8 +15,7 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('price')
-            ->add('stock')
-            ->add('createdAt')
+            ->add('stock')           
             ->add('isVerified')
             ->add('category')
         ;
