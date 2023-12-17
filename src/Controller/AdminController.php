@@ -58,15 +58,13 @@ class AdminController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            // Forcer le rôle ROLE_USER
-            $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
             $role = $user->getRoles();
             $id = $user->getId();
             // dd($id, $role);
-            
-                if (($this->isGranted('ROLE_ADMIN'))&&  (in_array('ROLE_EMPLOYEE', $role))){
+            if ($this->isGranted('ROLE_ADMIN')) {
+                if  (in_array('ROLE_EMPLOYEE', $role)){
                     $employee = $entityManager->getReference('App\Entity\User', $id);
                 }elseif(in_array('ROLE_USER', $role)) {
                     $employeeId = $userRepository->findEmployeeIdWithMinUserCount();
@@ -74,7 +72,15 @@ class AdminController extends AbstractController
                     $employee = $entityManager->getReference('App\Entity\User', $employeeId);     
                     
                 }
-            
+            }else {
+            // Forcer le rôle ROLE_USER
+            $user->setRoles(['ROLE_USER']);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $employeeId = $userRepository->findEmployeeIdWithMinUserCount();
+            $employeeId = $employeeId[0]->getEmployeeid()->getId();
+            $employee = $entityManager->getReference('App\Entity\User', $employeeId);
+            }
             $user->setEmployeeid($employee);
             $entityManager->persist($user);
             $entityManager->flush();
