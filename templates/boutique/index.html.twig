@@ -10,6 +10,7 @@
 		<h1>Liste de nos categories</h1>
 		<div class="row">
             {% for categorie in categories %}
+				{% if categorie.isVerified %}  
 				<div class="col-4">
 					<div class="card">
 						<div class="card-body">
@@ -18,6 +19,7 @@
 						</div>
 					</div>
 				</div>
+				{% endif %}
 			{% endfor %}
 		</div>
 
