@@ -3,7 +3,14 @@ Configuration de projet:
 	- Installer les fixtures (fausses données)
 		- composer require --dev orm-fixtures
 		- composer require fakerphp/faker
+	- Copier le fichier .env dans un autre .env.local et modifier les paramétres comme suit
+		- DATABASE_URL="mysql://root:@127.0.0.1:3306/ventalis?serverVersion=10.11.2-MariaDB&charset=utf8mb4"
 	- Installer  Rate Limiter component pour se protoger contre "brute force login attacks"
 		- composer require symfony/rate-limiter
 	- Installer le bundle KnpPaginatorBundle pour la pagination
 		- composer require knplabs/knp-paginator-bundle
+	- Installer le bundle google mailer pour envoyer les e-mails via Gmail
+		- composer require symfony/google-mailer
+	- Installer le bundle pour la réeinitialisation de mot de passe
+		- composer require symfonycasts/reset-password-bundle
+		- php bin/console make:reset-password
