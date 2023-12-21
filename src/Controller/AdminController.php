@@ -20,13 +20,13 @@ class AdminController extends AbstractController
     public function index(UserRepository $userRepository, PaginatorInterface $paginator, Request $request,Security $security): Response
 {
     if ($this->isGranted('ROLE_ADMIN')) {
-    $pagination = $paginator->paginate(
+        $pagination = $paginator->paginate(
         
         $userRepository->findAll(),
         $request->query->getInt('page', 1), // numéro de page
         10 // nombre d'éléments par page
     );
-        }elseif($this->isGranted('ROLE_EMPLOYEE')){
+    }elseif($this->isGranted('ROLE_EMPLOYEE')){
              $currentUser = $this->getUser();
               if (!$currentUser || !$currentUser instanceof User) {
                 return $this->redirectToRoute('app_login');

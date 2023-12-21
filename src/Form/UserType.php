@@ -8,12 +8,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Service\PasswordValidator;
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class UserType extends AbstractType
 {
+    private $passwordValidator;
+
+    public function __construct(PasswordValidator $passwordValidator)
+    {
+        $this->passwordValidator = $passwordValidator;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $roles = [
@@ -37,18 +43,16 @@ class UserType extends AbstractType
                     'class' => 'form-control'
                 ],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Tapez un mot de passe',
-                    ]),
-                    new Length([
-                        'min' => 8,
-                        'minMessage' => 'Le mot de passe doit contenir au moins {{ limit }} caractères.',
-                        'max' => 4096,
-                    ]),
-                    new Assert\Regex([
-                        'pattern' => '/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/',
-                        'message' => 'Le mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial.',
-                    ]),
+                   
+                    new Callback([
+                        'callback' => function ($value, ExecutionContextInterface $context) {
+                            $errors = $this->passwordValidator->validatePassword($value);
+    
+                            foreach ($errors as $error) {
+                                $context->buildViolation($error)->addViolation();
+                            }
+                        },
+                    ])
                 ],
                 'label' => 'Mot de passe',
             ])

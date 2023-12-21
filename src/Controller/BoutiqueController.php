@@ -16,7 +16,6 @@ class BoutiqueController extends AbstractController
         $categories = $categoryRepository->findAll();
 
         return $this->render('boutique/index.html.twig', [
-            'controller_name' => 'CategoryController',
             'categories' => $categories
         ]);
     }

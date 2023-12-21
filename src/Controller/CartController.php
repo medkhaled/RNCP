@@ -28,8 +28,6 @@ class CartController extends AbstractController
             $total+= $product->getPrice() * $quantity;
         }
         return $this->render('cart/index.html.twig',compact('data','total'));
-        // test renvoi  vers la fiche produit 
-        // return $this->render('/Front/product_front/detail.html.twig',compact('data','total'));
     }
 
     #[Route('/add/{id}', name:'add')] 
