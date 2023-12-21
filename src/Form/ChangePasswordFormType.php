@@ -9,9 +9,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use App\Service\PasswordValidator;
 
 class ChangePasswordFormType extends AbstractType
 {
+    private $passwordValidator;
+
+    public function __construct(PasswordValidator $passwordValidator)
+    {
+        $this->passwordValidator = $passwordValidator;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
