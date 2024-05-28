@@ -30,6 +30,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            
             $employeeId = $userRepository->findEmployeeIdWithMinUserCount();
             if ($employeeId) {
                 $employeeId = $employeeId[0]->getEmployeeid()->getId();

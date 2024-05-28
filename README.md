@@ -12,3 +12,13 @@ Configuration de projet:
 	- Installer le bundle pour la réeinitialisation de mot de passe
 		- composer require symfonycasts/reset-password-bundle
 		- php bin/console make:reset-password
+les identifiants pour le site:
+	Compte admin:
+		email:
+		password:
+	Compte Employee:
+		email:
+		password:
+	Compte Client:
+		email:
+		password:
