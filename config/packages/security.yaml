@@ -26,6 +26,8 @@ security:
                 interval: '15 minutes' # ... or in a custom period
             logout:
                 path: app_logout
+            json_login:
+                check_path: api_login
 
            
         secured_area:

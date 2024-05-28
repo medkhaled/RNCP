@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Controller;
-
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -43,14 +41,12 @@ class AdminController extends AbstractController
         'pagination' => $pagination,
     ]);
 }
-
     #[Route('/new', name: 'app_admin_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager ,UserPasswordHasherInterface $userPasswordHasher,UserRepository $userRepository): Response
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -87,13 +83,11 @@ class AdminController extends AbstractController
 
             return $this->redirectToRoute('app_admin_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->render('admin/new.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
-
     #[Route('/{id}', name: 'app_admin_show', methods: ['GET'])]
     public function show(User $user): Response
     {
@@ -101,7 +95,6 @@ class AdminController extends AbstractController
             'user' => $user,
         ]);
     }
-
     #[Route('/{id}/edit', name: 'app_admin_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher,): Response
     {
