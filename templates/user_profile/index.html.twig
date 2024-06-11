@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Edit{% endblock %}
+
+{% block body %}
+<section class="container">
+        <div class="row mb-3">
+            <div class="col">
+                <h1>Modifier mes données</h1>
+                 {% for message in app.flashes('success') %}
+                    <div class="alert alert-success mt-3">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn btn-primary ">Valider</button>
+                {{ form_end(form) }}
+        
+               
+            </div>
+        </div>
+</section>
+{% endblock %}
+

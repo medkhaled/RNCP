@@ -58,12 +58,15 @@
                             <a class="nav-link navlinks" href="{{ path('app_intranet') }}">Intranet</a>
                         </li>
                     {% endif %}
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link navlinks" href="{{ path('user_edit')}}">Mon Profil</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 <form class="d-flex mx-4">
                     {% if app.user %}
-                    <a href="">
-                        <i class="bi bi-person-circle icone"></i>
-                    </a>
+            
                     <a  href="{{ path('app_logout') }}">
                         <i class="bi bi-box-arrow-right icone"></i> 
                     </a>

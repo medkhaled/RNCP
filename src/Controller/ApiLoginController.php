@@ -15,7 +15,7 @@ class ApiLoginController extends AbstractController
     {
         if (null === $user) {
                          return $this->json([
-                             'message' => 'missing credentials',
+                             'message' => 'Veuillez vérifier vos identifiants',
                          ], Response::HTTP_UNAUTHORIZED);
                      }
             
