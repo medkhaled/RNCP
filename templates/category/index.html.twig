@@ -21,8 +21,8 @@
                 <td>{{ category.name }}</td>
                 <td>{{ category.isVerified ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('app_category_edit', {'id': category.id}) }}">edit</a>
+                    <a href="{{ path('app_category_show', {'id': category.id}) }}">Voir</a>
+                    <a href="{{ path('app_category_edit', {'id': category.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}

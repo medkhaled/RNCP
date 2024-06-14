@@ -51,7 +51,7 @@ security:
         - { path: '^/user', roles: ROLE_EMPLOYEE }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/employee, roles: ROLE_EMPLOYEE }
-        #- { path: ^/api, roles: ROLE_USER }
+
 
 when@test:
     security:

@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -60,6 +61,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'employeeid')]
+    #[MaxDepth(1)]
     private ?self $employee = null;
 
     #[ORM\Column(length: 100, nullable: true)]

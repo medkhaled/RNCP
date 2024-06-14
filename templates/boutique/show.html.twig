@@ -12,6 +12,12 @@
 				{% if produit.stock > 0 and produit.isVerified %}      
 				<div class="col-4">
 					<div class="card">
+						{% set image = produit.imageid|first %}
+                        {% if image %}
+                            <img src="{{ asset(image.path) }}" class="card-img-top" alt="{{ produit.name }}">
+                        {% else %}
+                            <img src="{{ asset('images/slide1.jpg') }}" class="card-img-top" alt="{{ produit.name }}">
+                        {% endif %}
 						<div class="card-body">
 							<h5 class="card-title">{{produit.name}}</h5>
 							<p class="card-text">{{produit.description}}</p>

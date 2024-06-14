@@ -62,6 +62,7 @@ class AdminController extends AbstractController
             if ($this->isGranted('ROLE_ADMIN')) {
                 if  (in_array('ROLE_EMPLOYEE', $role)){
                     $employee = $entityManager->getReference('App\Entity\User', $id);
+                    $user->setMatricule(substr($user->getFirstname(),0,2).substr($user->getLastname(),0,2).$id);
                 }elseif(in_array('ROLE_USER', $role)) {
                     $employeeId = $userRepository->findEmployeeIdWithMinUserCount();
                     $employeeId = $employeeId[0]->getEmployeeid()->getId();

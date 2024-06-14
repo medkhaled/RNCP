@@ -3,7 +3,12 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-
+<style>
+  .navlinks{
+            color: #F5D987 !important;
+            background-color: #425969 !important;
+        }
+</style>
 
 <div id="carouselExampleIndicators" class="carousel slide">
   <div class="carousel-indicators">
@@ -34,6 +39,25 @@
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card text-center mb-5 mt-5" style="width: 100%;">
+        <div class="card-body">
+          <p class="card-text">
+            L'entreprise Ventalis Home Decor est spécialisée dans la vente de décoration de maison artisanale, 
+            offrant une gamme variée de produits uniques et faits main qui apportent une touche d'authenticité à chaque maison.
+            Soucieuse de l'environnement, notre entreprise s'engage quotidiennement dans une démarche écologique rigoureuse. 
+            Nous privilégions l'utilisation de matériaux durables et recyclés, et collaborons avec des artisans locaux pour réduire notre empreinte carbone.
+            De plus, nous adoptons des pratiques de production respectueuses de l'environnement, telles que l'utilisation de teintures naturelles et la minimisation des déchets.
+            Chaque achat chez Ventalis Home Decor contribue à soutenir une économie circulaire et à promouvoir des valeurs éthiques et écologiques.
+          </p>
+          <a href="{{ path('app_boutique') }}" class="btn  navlinks">Voir nos Produits</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
