@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+<style>
+  .navlinks{
+            color: #F5D987 !important;
+            background-color: #425969 !important;
+        }
+</style>
+
+    
+<div class="container">
+  <div class="row justify-content-center">
+    
+        <div class="col-4 mb-4 mt-4">
+            <div class="card">
+                {% set image = product.imageid|first %}
+                {% if image %}
+                    <img src="{{ asset(image.path) }}" alt="{{ product.name }}">
+                {% else %}
+                    <img src="{{ asset('images/_LogoVentalis.jpg.webp') }}" alt="{{ product.name }}">
+                {% endif %}
+                <p>{{ product.description }}</p>
+                <p>Prix TTC: {{ product.price }}€</p>
+               {% if app.user %}
+                <button class="btn navlinks add-to-cart" data-id="{{ product.id }}">Ajouter au panier</button>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+  
+</div> 
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.add-to-cart').off('click').on('click', function() {
+      var productId = $(this).data('id');
+      $.ajax({
+        url: '{{ path('cart_add', {'id': 'ID'}) }}'.replace('ID', productId),
+        method: 'POST',  
+        success: function(response) {
+          alert(response.message);
+          
+        },
+        error: function() {
+          alert('Erreur lors de l\'ajout du produit au panier');
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}
+{% endblock %}

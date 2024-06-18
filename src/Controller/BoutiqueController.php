@@ -2,11 +2,12 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Product;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BoutiqueController extends AbstractController
 {
@@ -25,6 +26,13 @@ class BoutiqueController extends AbstractController
     {
         return $this->render('boutique/show.html.twig', [
             'categorie' => $category
+        ]);
+    }
+    #[Route('/boutique/product/{id}', name: 'product_detail')]
+    public function showProduct(Product $product): Response
+    {
+        return $this->render('boutique/detail.html.twig', [
+            'product' => $product,
         ]);
     }
 }

@@ -8,10 +8,10 @@
 
 	<div class="container">
 		<h1>Liste de nos categories</h1>
-		<div class="row">
+		<div class="row mb-4">
             {% for categorie in categories %}
 				{% if categorie.isVerified %}  
-				<div class="col-4">
+				<div class="col-4 mb-4">
 					<div class="card">
 						<div class="card-body">
 							<h5 class="card-title">{{categorie.name}}</h5>

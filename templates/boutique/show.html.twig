@@ -1,35 +1,62 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des catégories
-{% endblock %}
+{% block title %}Liste des catégories{% endblock %}
 
 {% block body %}
+<style>
+  .navlinks {
+    color: #F5D987 !important;
+    background-color: #425969 !important;
+  }
+</style>
+<div class="container">
+  <h1>Catégorie : {{ categorie.name }}</h1>
+  <div class="row mb-4">
+    {% for produit in categorie.productid %}
+      {% if produit.stock > 0 and produit.isVerified %}
+        <div class="col-4 mb-4">
+          <div class="card">
+            {% set image = produit.imageid|first %}
+            {% if image %}
+              <img src="{{ asset(image.path) }}" class="card-img-top" alt="{{ produit.name }}">
+            {% else %}
+              <img src="{{ asset('images/_LogoVentalis.jpg.webp') }}" class="card-img-top" alt="{{ produit.name }}">
+            {% endif %}
 
-	<div class="container">
-		<h1>Catégorie : {{ categorie.name }}</h1>
-		<div class="row">
-		{% for produit in categorie.productid %}
-				{% if produit.stock > 0 and produit.isVerified %}      
-				<div class="col-4">
-					<div class="card">
-						{% set image = produit.imageid|first %}
-                        {% if image %}
-                            <img src="{{ asset(image.path) }}" class="card-img-top" alt="{{ produit.name }}">
-                        {% else %}
-                            <img src="{{ asset('images/slide1.jpg') }}" class="card-img-top" alt="{{ produit.name }}">
-                        {% endif %}
-						<div class="card-body">
-							<h5 class="card-title">{{produit.name}}</h5>
-							<p class="card-text">{{produit.description}}</p>
-							<p class="card-text">{{produit.price}}€</p>
-							<a href="{{ path('cart_add',{ id:produit.id})}}" class="btn">Ajouter au panier</a>
-						</div>
-					</div>
-				</div>
-				{% endif %}
-		{% endfor %}
-		</div>
+            <div class="card" >
+              <h5 class="card-title">{{ produit.name }}</h5>
+              <p class="card-text">Prix TTC: {{ produit.price }}€</p>
+              {% if app.user %}
+                <button class="btn navlinks add-to-cart mb-2" data-id="{{ produit.id }}">Ajouter au panier</button>
+              {% endif %}
+			  <a class="btn navlinks add-to-cart" href="{{ path('product_detail', { id: produit.id }) }}">Voir details</a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
 
-	</div>
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.add-to-cart').off('click').on('click', function() {
+      var productId = $(this).data('id');
+      $.ajax({
+        url: '{{ path('cart_add', {'id': 'ID'}) }}'.replace('ID', productId),
+        method: 'POST',  
+        success: function(response) {
+          alert(response.message);
+          
+        },
+        error: function() {
+          alert('Erreur lors de l\'ajout du produit au panier');
+        }
+      });
+    });
+  });
+</script>
 {% endblock %}
-
+{% endblock %}

@@ -57,7 +57,7 @@
                     {% endif %}
                     {% if app.user %}
                         <li class="nav-item">
-                            <a class="nav-link navlinks" href="{{ path('user_edit')}}">Mon Profil</a>
+                            <a class="nav-link navlinks" href="{{ path('user_edit')}}">Mon Espace</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -67,14 +67,15 @@
                     <a  href="{{ path('app_logout') }}">
                         <i class="bi bi-box-arrow-right icone"></i> 
                     </a>
+                    <a href="{{ path('cart_index') }}" >
+                        <i class="bi bi-cart icone" ></i>
+                    </a>
                     {% else %}
                     <a href="{{ path('app_login') }}" >
                         <i class="bi bi-person-circle icone"></i>
                     </a>
                     {% endif %}
-                    <a href="{{ path('cart_index') }}" >
-                        <i class="bi bi-cart icone" ></i>
-                    </a>
+                    
                 </form>
             </div>
         </div>

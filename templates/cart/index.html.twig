@@ -39,9 +39,9 @@
                         <td> {{ element.quantity * element.product.price }} €</td>
                         <td></td>
                         <td> 
-                            <a href="{{ path('cart_add' , { id: element.product.id }) }}" class="bouton-lien">+<a/>
-                            <a href="{{ path('cart_remove' , { id: element.product.id }) }}" class="bouton-lien">-<a/>
-                            <a href="{{ path('cart_remove' , { id: element.product.id }) }}" class="bouton-lien">supprimer<a/>
+                            <a href="{{ path('cart_add' , { id: element.product.id }) }}" >+<a/>
+                            <a href="{{ path('cart_remove' , { id: element.product.id }) }}" >-<a/>
+                            <a href="{{ path('cart_remove' , { id: element.product.id }) }}" >supprimer<a/>
                         </td>
                         <td></td>
                     </tr>
@@ -57,6 +57,7 @@
                 <td> {{ total }} </td>
                 <td>
                     <a href="{{ path('cart_empty' )}}" class="bouton-lien" >Vider</a>
+                    <a href="{{ path('app_stripe' )}}" class="bouton-lien" >Valider Commande</a>
                 </td>
         </table>  
     </div>
