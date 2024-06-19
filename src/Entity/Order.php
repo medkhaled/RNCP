@@ -33,6 +33,9 @@ class Order
     #[ORM\Column(length: 255)]
     private ?string $Status = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $OrderCode = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -118,6 +121,18 @@ class Order
     public function setStatus(string $Status): static
     {
         $this->Status = $Status;
+
+        return $this;
+    }
+
+    public function getOrderCode(): ?string
+    {
+        return $this->OrderCode;
+    }
+
+    public function setOrderCode(string $OrderCode): static
+    {
+        $this->OrderCode = $OrderCode;
 
         return $this;
     }

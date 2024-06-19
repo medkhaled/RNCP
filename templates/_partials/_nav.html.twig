@@ -56,9 +56,19 @@
                         </li>
                     {% endif %}
                     {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link navlinks" href="{{ path('user_edit')}}">Mon Espace</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle navlinks "    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Mon Espace
+                            </a>
+                            <ul class="dropdown-menu navlinks">
+                                <li class="nav-item">
+                                    <a class="dropdown-item navlinks" href="{{ path('user_edit')}}">Coordonnées</a>
+                                </li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_order')}}">Commandes</a></li>
+                                <li><a class="dropdown-item navlinks" href="#">Message</a></li>
+                            </ul>
                         </li>
+                        
                     {% endif %}
                 </ul>
                 <form class="d-flex mx-4">
