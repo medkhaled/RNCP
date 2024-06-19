@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message{% endblock %}
+
+{% block body %}
+    <h1>Message de {{ message.sender.email }}</h1>
+    <p>{{ message.content }}</p>
+    <p>Reçu le: {{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+{% endblock %}

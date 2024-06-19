@@ -70,11 +70,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notes::class)]
     private Collection $notes;
 
+    #[ORM\OneToMany(mappedBy: 'sender', targetEntity: Message::class)]
+    private Collection $sender;
+
+    #[ORM\OneToMany(mappedBy: 'recipient', targetEntity: Message::class)]
+    private Collection $recipient;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class)]
+    private Collection $orders;
+
     public function __construct()
     {
         // Initialisez la date de création lors de la création de l'objet
         $this->created_at =  new \DateTime();
         $this->notes = new ArrayCollection();
+        $this->sender = new ArrayCollection();
+        $this->recipient = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -228,11 +240,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->employee;
     }
-     public function getEmployee(): ?self
+    public function getEmployee(): ?self
     {
         return $this->employee;
     }
-
     public function setEmployeeid(?self $employeeid): static
     {
         $this->employee = $employeeid;
@@ -282,4 +293,95 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getSender(): Collection
+    {
+        return $this->sender;
+    }
+
+    public function addSender(Message $sender): static
+    {
+        if (!$this->sender->contains($sender)) {
+            $this->sender->add($sender);
+            $sender->setSender($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSender(Message $sender): static
+    {
+        if ($this->sender->removeElement($sender)) {
+            // set the owning side to null (unless already changed)
+            if ($sender->getSender() === $this) {
+                $sender->setSender(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getRecipient(): Collection
+    {
+        return $this->recipient;
+    }
+
+    public function addRecipient(Message $recipient): static
+    {
+        if (!$this->recipient->contains($recipient)) {
+            $this->recipient->add($recipient);
+            $recipient->setRecipient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipient(Message $recipient): static
+    {
+        if ($this->recipient->removeElement($recipient)) {
+            // set the owning side to null (unless already changed)
+            if ($recipient->getRecipient() === $this) {
+                $recipient->setRecipient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
+ 
