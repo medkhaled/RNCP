@@ -27,15 +27,18 @@ class Message
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-   /**
-     * @ORM\Column(type="datetime")
-     */
-    private ?DateTime $createdAt = null;
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $createdAt;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isRead = null;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
+       
     }
+    
 
     public function getId(): ?int
     {
@@ -77,7 +80,6 @@ class Message
 
         return $this;
     }
-
     public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
@@ -89,5 +91,17 @@ class Message
 
         return $this;
     }
-  
+
+    public function isIsRead(): ?bool
+    {
+        return $this->isRead;
+    }
+
+    public function setIsRead(?bool $isRead): static
+    {
+        $this->isRead = $isRead;
+
+        return $this;
+    }
+   
 }

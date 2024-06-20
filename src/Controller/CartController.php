@@ -32,7 +32,7 @@ class CartController extends AbstractController
         return $this->render('cart/index.html.twig', compact('data', 'total'));
     }
 
-    #[Route('/add/{id}', name: 'add', methods: ['POST'])]
+    #[Route('/add/{id}', name: 'add', methods: ['GET', 'POST'])]
     public function add(Product $product, SessionInterface $session, Request $request)
     {
         $id = $product->getId();

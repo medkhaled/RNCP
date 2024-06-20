@@ -65,7 +65,12 @@
                                     <a class="dropdown-item navlinks" href="{{ path('user_edit')}}">Coordonnées</a>
                                 </li>
                                 <li><a class="dropdown-item navlinks" href="{{ path('app_order')}}">Commandes</a></li>
-                                <li><a class="dropdown-item navlinks" href="#">Message</a></li>
+                                {% if is_granted('ROLE_EMPLOYEE') %}
+                                <li><a class="dropdown-item navlinks" href="{{ path('message_index')}}">Message</a></li>
+                                {% else %}
+                                <li><a class="dropdown-item navlinks" href="{{ path('message_conversation')}}">Message</a></li>
+                                {% endif %}
+
                             </ul>
                         </li>
                         

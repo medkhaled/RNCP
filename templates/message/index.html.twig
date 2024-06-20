@@ -15,14 +15,17 @@
         </thead>
         <tbody>
         {% for message in messages %}
-            <tr>
-                <td>{{ message.sender.email }}</td>
-                <td>{{ message.content | slice(0, 50) }}...</td>
-                <td>{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('message_show', {'id': message.id}) }}">Voir</a>
-                </td>
-            </tr>
+            {% if (not(message.isIsRead) ) %}
+                <tr>
+                    <td>{{ message.sender.email }}</td>
+                    <td>{{ message.content | slice(0, 50) }}...</td>
+                    <td>{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('message_read', {'id': message.id}) }}">Marquer Lu</a>
+                        <a href="{{ path('message_conversation_employee', {'userId':message.sender.id}) }}">Répondre</a>
+                    </td>
+                </tr>
+            {% endif %}
         {% else %}
             <tr>
                 <td colspan="4">Aucun message trouvé</td>

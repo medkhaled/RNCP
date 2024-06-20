@@ -13,10 +13,10 @@ class MessageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', TextareaType::class, [
-                'label' => 'Message',
-                'attr' => ['rows' => 6],
-            ]);
+        ->add('content', TextareaType::class, [
+            'label' => 'Message',
+            'attr' => ['rows' => 4, 'class' => 'form-control'],
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

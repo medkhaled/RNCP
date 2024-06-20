@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Message;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Message>
@@ -19,6 +20,24 @@ class MessageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Message::class);
+    }
+    /**
+     * Récupère les messages entre un utilisateur et son employé.
+     *
+     * @param User $user L'utilisateur
+     * @param User $employee L'employé
+     * @return Message[] Les messages trouvés
+     */
+    public function findConversation(User $user, User $employee): array
+    {
+        return $this->createQueryBuilder('m')
+            ->where('m.sender = :user AND m.recipient = :employee')
+            ->orWhere('m.sender = :employee AND m.recipient = :user')
+            ->setParameter('user', $user)
+            ->setParameter('employee', $employee)
+            ->orderBy('m.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

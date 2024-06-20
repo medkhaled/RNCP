@@ -55,6 +55,7 @@ security:
         - { path: ^/cart,   roles: ROLE_USER }
         - { path: ^/stripe, roles: ROLE_USER }
         - { path: ^/commande, roles: ROLE_USER }
+        - { path: ^/intranet, roles: ROLE_EMPLOYEE }
 
 
 when@test:
