@@ -28,12 +28,13 @@ class ChangePasswordFormType extends AbstractType
                 'options' => [
                     'attr' => [
                         'autocomplete' => 'new-password',
+                        'class' => 'form-control',
                     ],
                 ],
                 'first_options' => [
                     'constraints' => [
                         new NotBlank([
-                            'message' => 'Tapez un mot de passe',
+                            'message' => 'Veuillez saisir un mot de passe',
                         ]),
                         new Callback([
                             'callback' => function ($value, ExecutionContextInterface $context) {
@@ -45,15 +46,20 @@ class ChangePasswordFormType extends AbstractType
                             },
                         ]),
                     ],
-                    'label' => 'Tapez un mot de passe',
+                    'label' => 'Mot de Passe',
                 ],
                 'second_options' => [
-                    'label' => 'Repetez le mot de passe',
+                    'label' => 'Répétez le mot de passe',
+                    'attr' => [
+                        'class' => 'form-control',
+                    ],
                 ],
-                'invalid_message' => 'The password fields must match.',
-                // Instead of being set onto the object directly,
-                // this is read and encoded in the controller
+                'invalid_message' => 'Les mots de passe doivent correspondre.',
+
                 'mapped' => false,
+                'label_attr' => [
+                    'class' => 'form-label', 
+                ],
             ])
         ;
     }
