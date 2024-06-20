@@ -38,7 +38,7 @@
                         <a class="nav-link  navlinks" aria-current="page" href="{{ path('app_main') }}" >accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navlinks" href="#">à propos</a>
+                        <a class="nav-link navlinks" href="{{ path('app_about') }}">à propos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link navlinks" href="{{ path('app_contact') }}">contact</a>
@@ -52,9 +52,24 @@
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_EMPLOYEE') %}
-                        <li class="nav-item">
-                            <a class="nav-link navlinks" href="{{ path('app_intranet') }}">Intranet</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle navlinks "    href="{{ path('app_intranet') }}" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               Intranet
+                            </a>
+                            <ul class="dropdown-menu navlinks">
+                                <li class="nav-item">
+                                    <a class="dropdown-item navlinks" href="{{ path('app_admin_index') }}">Mes Clients</a>
+                                </li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_category_index') }}">Catlaogues</a></li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_product_index') }}">Produits</a></li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_images_index') }}">Images</a></li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_admin_order_index') }}">Commandes</a></li>
+                                
+
+                            </ul>
                         </li>
+                        
                     {% endif %}
                     {% if app.user %}
                         <li class="nav-item dropdown">

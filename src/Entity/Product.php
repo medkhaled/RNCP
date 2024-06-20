@@ -40,10 +40,10 @@ class Product
 
  
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: images::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Images::class)]
     private Collection $imageid;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: notes::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Notes::class)]
     private Collection $notes;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
@@ -148,14 +148,14 @@ class Product
    
 
     /**
-     * @return Collection<int, images>
+     * @return Collection<int, Images>
      */
     public function getImageid(): Collection
     {
         return $this->imageid;
     }
 
-    public function addImageid(images $imageid): static
+    public function addImageid(Images $imageid): static
     {
         if (!$this->imageid->contains($imageid)) {
             $this->imageid->add($imageid);
@@ -165,7 +165,7 @@ class Product
         return $this;
     }
 
-    public function removeImageid(images $imageid): static
+    public function removeImageid(Images $imageid): static
     {
         if ($this->imageid->removeElement($imageid)) {
             // set the owning side to null (unless already changed)
@@ -178,14 +178,14 @@ class Product
     }
 
     /**
-     * @return Collection<int, notes>
+     * @return Collection<int, Notes>
      */
     public function getNotes(): Collection
     {
         return $this->notes;
     }
 
-    public function addNote(notes $note): static
+    public function addNote(Notes $note): static
     {
         if (!$this->notes->contains($note)) {
             $this->notes->add($note);
@@ -195,7 +195,7 @@ class Product
         return $this;
     }
 
-    public function removeNote(notes $note): static
+    public function removeNote(Notes $note): static
     {
         if ($this->notes->removeElement($note)) {
             // set the owning side to null (unless already changed)
