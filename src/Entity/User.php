@@ -2,66 +2,67 @@
 
 namespace App\Entity;
 
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
-
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'ce mail est déja utilisée')]
+#[UniqueEntity(fields: ['email'], message: 'ce mail est déjà utilisée')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $address = null;
 
     #[ORM\Column(length: 5)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $zipcode = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups(['user:read', 'user:write'])]
     private ?string $city = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE,nullable: true)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $created_at = null;
 
-   
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?bool $isVerified = false;
-
-    
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'employeeid')]
     #[MaxDepth(1)]
+    #[Groups(['user:read', 'user:write'])]
     private ?self $employee = null;
 
     #[ORM\Column(length: 100, nullable: true)]
@@ -81,13 +82,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        // Initialisez la date de création lors de la création de l'objet
-        $this->created_at =  new \DateTime();
+        $this->created_at = new \DateTime();
         $this->notes = new ArrayCollection();
         $this->sender = new ArrayCollection();
         $this->recipient = new ArrayCollection();
         $this->orders = new ArrayCollection();
     }
+
     public function getId(): ?int
     {
         return $this->id;
