@@ -27,7 +27,7 @@ class Order
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $total = null;
 
-    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: orderItem::class,  cascade: ['persist'],orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'orders', targetEntity: OrderItem::class,  cascade: ['persist'],orphanRemoval: true)]
     private Collection $items;
 
     #[ORM\Column(length: 255)]
