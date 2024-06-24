@@ -51,7 +51,12 @@ security:
         - { path: '^/user', roles: ROLE_EMPLOYEE }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/employee, roles: ROLE_EMPLOYEE }
-        #- { path: ^/api, roles: ROLE_USER }
+        - { path: ^/message, roles: ROLE_USER }
+        - { path: ^/cart,   roles: ROLE_USER }
+        - { path: ^/stripe, roles: ROLE_USER }
+        - { path: ^/commande, roles: ROLE_USER }
+        - { path: ^/intranet, roles: ROLE_EMPLOYEE }
+
 
 when@test:
     security:

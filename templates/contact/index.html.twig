@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1>Contactez-nous</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.FirstName) }}
+                {{ form_widget(form.FirstName, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.FirstName) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.LastName) }}
+                {{ form_widget(form.LastName, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.LastName) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.email) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.message) }}
+                {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.message) }}
+            </div>
+            <div>
+                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -19,3 +19,7 @@
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 /migrations
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Commandes{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Mes Commandes</h1>
+
+        <div class="row">
+            {% for order in orders %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2 class="card-title">Commande {{ order.orderCode }}</h2>
+                            <p class="card-text">Date: {{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"><strong>Total:</strong> {{ order.total }}</p>
+                            <p class="card-text"><strong>Statut:</strong> {{ order.status }}</p>
+                            <h3 class="card-title">Détails:</h3>
+                            <ul class="list-group list-group-flush">
+                                {% for item in order.items %}
+                                    <li class="list-group-item">{{ item.product }} - Quantité: {{ item.quantity }} - Prix: {{ item.price }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

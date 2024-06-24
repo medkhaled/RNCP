@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        
+
+               <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="card-title">Conversation avec {{ user.firstname }}</h2>
+            </div>
+            <div class="card-body">
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="message {% if message.sender == app.user %}sent{% else %}received{% endif %}">
+                            <div class="message-content">
+                                <p>{{ message.content }}</p>
+                                <small class="text-muted">{{ message.createdAt|date('Y-m-d H:i:s') }}</small>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% if messages is empty %}
+                        <p class="text-center">Aucun message trouvé</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">Envoyer un nouveau message</h2>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                    <div class="form-group">
+                        {{ form_label(form.content) }}
+                        {{ form_widget(form.content, { 'attr': {'class': 'form-control', 'rows': 4} }) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Envoyer</button>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+      <style>
+        .messages {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        .message {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+        .message.sent {
+            align-items: flex-end;
+        }
+        .message.received {
+            align-items: flex-start;
+        }
+        .message-content {
+            max-width: 60%;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #f1f1f1;
+        }
+        .message.sent .message-content {
+            background-color: #007bff;
+            color: white;
+        }
+        .message.received .message-content {
+            background-color: #e9ecef;
+        }
+        .message-content p {
+            margin: 0;
+        }
+        .message-content small {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.8em;
+        }
+    </style>
+{% endblock %}
