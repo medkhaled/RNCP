@@ -8,7 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -81,9 +80,6 @@ class RegistrationFormType extends AbstractType
                     'class' => 'form-control'
                 ],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Tapez un mot de passe',
-                    ]),
                     new Callback([
                         'callback' => function ($value, ExecutionContextInterface $context) {
                             $errors = $this->passwordValidator->validatePassword($value);
