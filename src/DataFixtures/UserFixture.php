@@ -15,12 +15,11 @@ class UserFixture extends Fixture
     ){}
     public function load(ObjectManager $manager): void
     {
-        // $product = new Product();
-        // $manager->persist($product);
+
         $admin = new User();
-        $admin->setEmail('medkhaledgi@gmail.com');
-        $admin->setLastname('Khaled');
-        $admin->setFirstname('Mohamed');
+        $admin->setEmail('admin@ventalis.com');
+        $admin->setLastname('Admin');
+        $admin->setFirstname('Ventalis');
         $admin->setAddress('12 rue du port');
         $admin->setZipcode('75011');
         $admin->setCity('Paris');
@@ -46,19 +45,7 @@ class UserFixture extends Fixture
             $manager->persist($employee);
         }
 
-        for($usr = 1; $usr <= 50; $usr++){
-            $user = new User();
-            $user->setEmail($faker->email);
-            $user->setLastname($faker->lastName);
-            $user->setFirstname($faker->firstName);
-            $user->setAddress($faker->streetAddress);
-            $user->setZipcode(str_replace(' ', '', $faker->postcode));
-            $user->setCity($faker->city);
-            $user->setPassword(
-                $this->passwordEncoder->hashPassword($user, 'user')
-            );
-            $manager->persist($user);
-        }
+
        
        
         $manager->flush();

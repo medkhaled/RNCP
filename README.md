@@ -23,6 +23,15 @@ composer install
 ### 4. Modify the `.env` file
 Open the `.env` file and update the necessary configuration settings, such as database connection details and other environment variables.
 
+### 5.Create the Database:
+```sh
+php bin/console doctrine:database:create
+```
+### 6.Load the Fixtures:
+```sh
+php bin/console doctrine:fixtures:load
+```
+
 ## Additional Information
 
 - For detailed documentation, refer to the [Symfony Documentation](https://symfony.com/doc/current/index.html).
