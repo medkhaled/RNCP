@@ -1,6 +1,3 @@
-Here's the corrected version of your `README.md` file:
-
-```markdown
 # RNCP Symfony Project
 
 Welcome to the RNCP Symfony Project. Follow these steps to get started.
