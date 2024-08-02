@@ -1,21 +1,22 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>{% block title %}Accueil{% endblock %} - Site e-commerce Ventalis</title>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Site e-commerce Ventalis</title>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Feuilles de styles -->
 		<link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"> <!-- la fonction asset() pour se baser sur le dossier public -->
-        {% block stylesheets %}{% endblock %}
-		<link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+		{% block stylesheets %}{% endblock %}
+		<script src="{{ asset('assets/js/scripts.js') }}" defer></script>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-
 		<!-- Fichiers JS -->
 		<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}" defer></script>
 		{% block javascripts %}{% endblock %}
-		<script src="{{ asset('assets/js/scripts.js') }}" defer></script>
+		
 	</head>
 	<body>
         {% include "_partials/_nav.html.twig" %}

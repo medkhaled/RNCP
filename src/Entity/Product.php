@@ -40,17 +40,21 @@ class Product
 
  
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: images::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Images::class)]
     private Collection $imageid;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: notes::class)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Notes::class)]
     private Collection $notes;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderItem::class)]
+    private Collection $product;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->imageid = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->product = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,18 +141,21 @@ class Product
         return $this;
     }
 
-
+    public function __toString(): string
+    {
+        return $this->name;
+    }
    
 
     /**
-     * @return Collection<int, images>
+     * @return Collection<int, Images>
      */
     public function getImageid(): Collection
     {
         return $this->imageid;
     }
 
-    public function addImageid(images $imageid): static
+    public function addImageid(Images $imageid): static
     {
         if (!$this->imageid->contains($imageid)) {
             $this->imageid->add($imageid);
@@ -158,7 +165,7 @@ class Product
         return $this;
     }
 
-    public function removeImageid(images $imageid): static
+    public function removeImageid(Images $imageid): static
     {
         if ($this->imageid->removeElement($imageid)) {
             // set the owning side to null (unless already changed)
@@ -171,14 +178,14 @@ class Product
     }
 
     /**
-     * @return Collection<int, notes>
+     * @return Collection<int, Notes>
      */
     public function getNotes(): Collection
     {
         return $this->notes;
     }
 
-    public function addNote(notes $note): static
+    public function addNote(Notes $note): static
     {
         if (!$this->notes->contains($note)) {
             $this->notes->add($note);
@@ -188,12 +195,42 @@ class Product
         return $this;
     }
 
-    public function removeNote(notes $note): static
+    public function removeNote(Notes $note): static
     {
         if ($this->notes->removeElement($note)) {
             // set the owning side to null (unless already changed)
             if ($note->getProduct() === $this) {
                 $note->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderItem>
+     */
+    public function getProduct(): Collection
+    {
+        return $this->product;
+    }
+
+    public function addProduct(OrderItem $product): static
+    {
+        if (!$this->product->contains($product)) {
+            $this->product->add($product);
+            $product->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(OrderItem $product): static
+    {
+        if ($this->product->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getProduct() === $this) {
+                $product->setProduct(null);
             }
         }
 

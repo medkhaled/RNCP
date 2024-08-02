@@ -2,29 +2,41 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Product;
+use App\Repository\CategoryRepository;
+use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Category;
-use App\Repository\CategoryRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BoutiqueController extends AbstractController
 {
     #[Route('/boutique', name: 'app_boutique')]
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(Request $request, ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
+        $categoryId = $request->query->get('category');
         $categories = $categoryRepository->findAll();
+
+        if ($categoryId) {
+            $products = $productRepository->findBy(['category' => $categoryId]);
+        } else {
+            $products = $productRepository->findAll();
+        }
 
         return $this->render('boutique/index.html.twig', [
             'controller_name' => 'CategoryController',
-            'categories' => $categories
+            'products' => $products,
+            'categories' => $categories,
+            'selectedCategory' => $categoryId,
         ]);
     }
-    #[Route('/boutique/{id}', name: 'app_boutique_show')]
-    public function show(Category $category): Response
+    #[Route('/boutique/product/{id}', name: 'product_detail')]
+    public function showProduct(Product $product): Response
     {
-        return $this->render('boutique/show.html.twig', [
-            'categorie' => $category
+        return $this->render('boutique/detail.html.twig', [
+            'product' => $product,
         ]);
     }
 }
+

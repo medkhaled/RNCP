@@ -1,39 +1,117 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('assets/css/index.css') }}"> 
+
+
+{% endblock %}
+
 
 {% block body %}
 
 
-<div id="carouselExampleIndicators" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="{{ asset('images/slide1.jpg') }}" class="d-block w-100" alt="slide1">
-    </div>
-    <div class="carousel-item">
-      <img src="{{ asset('images/slide2.jpg') }}" class="d-block w-100" alt="slide2">
-    </div>
-    <div class="carousel-item">
-      <img src="{{ asset('images/slide3.jpg') }}" class="d-block w-100" alt="slide3">
-    </div>
-    <div class="carousel-item">
-      <img src="{{ asset('images/slide4.jpg') }}" class="d-block w-100" alt="slide4">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+    <section class="hero">
+        <div class="container">
+            <h1 class>L'artisanat chez vous</h1>
+            <p>Trouvez une multitude d'objets de d&eacute;coration 100%<br> artisanaux afin d'embellir vos int&eacute;rieurs.</p>
+            <a href="{{ path('app_boutique') }}" class="button">Découvrir</a>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2>L'artisanat pour vos intérieurs</h2>
+            <h3>Pour rajouter une touche d’authenticité chez vous</h3>
+            <div class="category-cards">
+                <div class="cardeco">
+                    <img src="{{ asset('images/Categorie1.jpg') }}" alt="Décoration Macramé">
+                    
+                </div>
+                <div class="cardeco">
+                    <img src="{{ asset('images/Categorie2.jpg') }}" alt="Art de Table">
+                    
+                </div>
+                <div class="cardeco">
+                    <img src="{{ asset('images/Categorie3.jpg') }}" alt="Lustres Rotin">
+                    
+                </div>
+            </div>
+            <p class="note">Tous nos produits sont 100% faits main.<br> De fabrication 100% française.</p>
+        </div>
+    </section>
+
+    <section class="top-sales">
+        <div class="container">
+            <h2>Le TOP 3 de nos ventes :</h2>
+            <h3>Nos clients ont adorés ces articles !</h3>
+            <div class="product-cards">
+                <div class="cardeco">
+                    <img src="{{ asset('images/Top1.jpg') }}" alt="Porte-clé en macramé">
+                    <h4>Porte-clé en macramé</h4>
+                    <h5>Porte-clé en corde de coton fait-main <br>5.99€</h5>
+                    <a href="{{ path('product_detail', { id: 1 }) }}" class="button">Acheter</a>
+                </div>
+                <div class="cardeco">
+                    <img src="{{ asset('images/Top2.jpg') }}" alt="Vase minimaliste">
+                    <h4>Vase minimaliste et arrondi</h4>
+                    <h5>Vase 20x50cm en terre cuite<br>15.99€</h5>
+                    <a href="{{ path('product_detail', { id: 2 }) }}" class="button">Acheter</a>
+                </div>
+                <div class="cardeco">
+                    <img src="{{ asset('images/Top3.jpg') }}" alt="Ensemble de suspensions en rotin">
+                    <h4>5 suspensions en rotin</h4>
+                    <h5>Pack 30cm de diamètre - rotin d’Indonésie<br>79.99€</h5>
+                    <a href="{{ path('product_detail', { id: 3 }) }}" class="button">Acheter</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <h2>Avis clients</h2>
+            <h3>Une satisfaction assurée à 100%</h3>
+            <div class="testimonials-cards">
+                <div class="cardeco">
+                    <p>“Très belles finitions, j’ai acheté plusieurs fois chez eux.”</p>
+                    <p class="author"><img class="Avatar" src="{{ asset('images/Avatar1.jpg') }}" alt="Avatar Raphaël"> Raphaël</p><p class="Acheteur">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Acheteur certifié</p>
+                </div>
+                <div class="cardeco">
+                    <p>“Très bon rapport qualité prix, je recommande.”</p>
+                    <p class="author"><img class="Avatar" src="{{ asset('images/Avatar2.jpg') }}" alt="Avatar Anaëlle"> Anaëlle</p><p class="Acheteur">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Acheteur certifié</p>
+                </div>
+                <div class="cardeco">
+                    <p>“J’y ai acheté un superbe vase, parfait pour offrir !”</p>
+                    <p class="author"><img class="Avatar" src="{{ asset('images/Avatar3.jpg') }}" alt="Avatar Louisa"> Louisa</p><p class="Acheteur">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Acheteur certifié</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="text">
+                    <h2>Ventalis, c’est...</h2>
+                    <h3>Des produits authentiques et 100% artisanaux...</h3>
+                    <p>Spécialisés dans la vente de décoration de maison artisanale depuis 1990 , nous offrons aujourd’hui une gamme variée de produits uniques et faits main qui apportent une touche d'authenticité à chaque maison.
+
+ 
+
+                        Soucieuse de l'environnement, notre entreprise s'engage quotidiennement dans une démarche écologique rigoureuse .
+                        
+                        Nous privilégions l'utilisation de matériaux durables et recyclés , et collaborons avec des artisans locaux pour réduire notre empreinte carbone.
+                        
+                        De plus, nous adoptons des pratiques de production respectueuses de l'environnement, telles que l'utilisation de teintures naturelles et la minimisation des déchets.
+                        
+                        Chaque achat chez Ventalis Home Décor contribue à soutenir une économie circulaire et à promouvoir des valeurs éthiques et écologiques.</p>
+                </div>
+                <div class="image">
+                    <img src="{{ asset('images/About.jpg') }}" alt="À propos de Ventalis">
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}

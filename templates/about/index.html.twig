@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}About{% endblock %}
+
+
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white text-center">
+                    <h2>À propos de Ventalis</h2>
+                </div>
+                <div class="card-body">
+                    <p>
+                        <strong>Ventalis</strong>, est une entreprise spécialisée dans la vente de produits marketing ainsi que dans la visibilité de leurs clients. 
+                        Ils ont un chiffre d’affaires de 3 millions d’euros, c’est une Licorne 100% française. Ils ont 50 salariés répartis dans toute la France.
+                    </p>
+                    <p>
+                        Leurs succès leur viennent de leurs performances, ils sont très rapides dans leurs prestations, et ils sont surtout dans une démarche écologique :
+                        ils reversent 20% de leur chiffre d’affaires annuel dans les projets qui œuvrent pour cela. Un audit a été réalisé et les clients préfèrent payer un peu 
+                        plus cher, mais que cela puisse servir à la planète.
+                    </p>
+                    <p>
+                        <strong>Ventalis</strong> souhaite se renouveler, pour cela ils ont pensé à une application révolutionnaire qui pourrait les aider à encore plus se développer ! 
+                        Un outil de gestion de leurs commandes des produits marketing. Cela se concrétiserait par une application web, mobile ainsi que bureautique.
+                    </p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="{{ path('app_contact') }}" class="btn btn-success">Contactez-nous</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+

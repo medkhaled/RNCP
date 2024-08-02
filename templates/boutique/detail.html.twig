@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+
+    <section class="about">
+        <div class="container">
+            <div class="about-content">
+                  <div class="image">
+                    {% set image = product.imageid|first %}
+                    {% if image %}
+                      <img src="{{ asset(image.path) }}" alt="{{ product.name }}">
+                    {% else %}
+                      <img src="{{ asset('images/_LogoVentalis.jpg.webp') }}" alt="{{ product.name }}">
+                    {% endif %}
+                </div>
+                <div class="text">
+                    <h2>Ventalis, c’est...</h2>
+                    <h3>Des produits authentiques et 100% artisanaux...</h3>
+                    <p>Description: {{ product.description }}</p>
+                    <p>Prix TTC: {{ product.price }}€</p>
+                    <button class="btn button mb-2 w-100 add-to-cart" data-id="{{ product.id }}">Ajouter au panier</button>
+                    
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% block stylesheets %}
+<style>
+.about {
+        
+        padding: 50px 0;
+    }
+
+    .about .about-content {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .about h2 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        font-family:"GaretHeavey";
+        color:#283A2E;
+    }
+    .about h3 {
+        font-size: 2em;
+        margin-bottom: 20px;
+        font-family:"GlacialIndifferenceRegular";
+        color : #6F8D81;
+    }
+    .about .text {
+        flex: 1;
+        padding: 20px;
+        font-family:"GlacialIndifferenceRegular";
+    }
+
+    .about .image {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .about .image img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+    .category-cards .cardeco img,
+    .product-cards .cardeco img {
+        width: 100%;
+        height: 380px; 
+        object-fit: cover;
+        border-radius: 10px;
+    }
+    
+@media (max-width: 768px) {
+
+
+    .category-cards .cardeco,
+    .product-cards .cardeco,
+    .testimonials-cards .cardeco {
+        width: 100%;
+    }
+
+    .about .about-content {
+        flex-direction: column;
+    }
+
+
+}
+
+.button {
+        background-color: #F8CF40;
+        border: none;
+        padding: 15px 30px;
+        font-size: 1.2em;
+        font-family: "GaretHeavey";
+        border-radius:8%;
+        text-align: center;
+    }
+</style>
+{% endblock %}
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('.add-to-cart').off('click').on('click', function() {
+      var productId = $(this).data('id');
+      $.ajax({
+        url: '{{ path('cart_add', {'id': 'ID'}) }}'.replace('ID', productId),
+        method: 'POST',  
+        success: function(response) {
+          alert(response.message);
+          
+        },
+        error: function() {
+          alert('Erreur lors de l\'ajout du produit au panier');
+        }
+      });
+    });
+  });
+</script>
+{% endblock %}
+{% endblock %}

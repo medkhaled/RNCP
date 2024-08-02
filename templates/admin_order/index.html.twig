@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order index{% endblock %}
+
+{% block body %}
+    <h1>les commandes</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedAt</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>OrderCode</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.createdAt ? order.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ order.total }}</td>
+                <td>{{ order.Status }}</td>
+                <td>{{ order.OrderCode }}</td>
+                <td>
+                    <a href="{{ path('app_admin_order_show', {'id': order.id}) }}">show</a>
+                    <a href="{{ path('app_admin_order_edit', {'id': order.id}) }}">Changer Statut</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas de commande</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+{% endblock %}

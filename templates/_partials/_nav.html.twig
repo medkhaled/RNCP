@@ -1,32 +1,49 @@
     <style>
-        
-        .custom-navbar {
-            background-color: #425969 !important;
-        
+        @font-face {
+            font-family: "GlacialIndifferenceRegular";
+            src: url("{{asset('Fonts/GlacialIndifference-Regular.otf')}}") format("opentype");
         }
+        @font-face {
+            font-family: "GlacialIndifferenceBold";
+            src: url("{{asset('Fonts/GlacialIndifference-Bold.otf')}}") format("opentype");
+            }
+        @font-face {
+            font-family: "GaretBook";
+            src: url("{{asset('Fonts/Garet-Book.otf')}}") format("opentype");   
+            }
+        @font-face {
+            font-family: "GaretHeavey";
+            src: url("{{asset('Fonts/Garet-Heavy.otf')}}") format("opentype");        
+            }
+
+        .navlinks {
+            background-color: #fff;
+            color: #283a2e;
+            font-family: "GlacialIndifferenceRegular";
+            text-transform: uppercase;
+        }
+      
         .icone{
-            color: #F5D987 !important;
+            color: #828282 !important;
             font-size: 2rem !important;
             margin-right: 2rem !important;
         }
         .s-icone{
-           color: #F5D987 !important;
+           color: #828282 !important;
             font-size: 2rem !important; 
         }
-        .navlinks{
-            color: #F5D987 !important;
-            text-transform: uppercase;
-
-        }
+        
         .footlinks{
-            color: #F5D987 !important;
+            background-color: #fff;
+            color: #283a2e;
+            font-family: "GlacialIndifferenceRegular";
             text-transform: uppercase;
         }
     </style>
     <nav class="navbar navbar-expand-lg navbar-light custom-navbar  ">
         <div class="container-fluid ">
             <a class="navbar-brand" href="{{ path('app_main') }}">
-                <img src="{{ asset('images/_LogoVentalis.jpg.webp') }}" alt="Logo" width="120" height="60">
+                <img src="{{ asset('images/Logo-fondblanc_ventalis.png') }}" alt="Logo" width="210" height="55">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -37,32 +54,60 @@
                         <a class="nav-link  navlinks" aria-current="page" href="{{ path('app_main') }}" >accueil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navlinks" href="#">à propos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link navlinks" href="#">contact</a>
+                        <a class="nav-link navlinks" href="{{ path('app_about') }}">à propos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link navlinks" href="{{ path('app_boutique') }}">boutique</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navlinks" href="#">nos artisans</a>
+                        <a class="nav-link navlinks" href="{{ path('app_contact') }}">contact</a>
                     </li>
+                    
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link navlinks" href="{{ path('app_admin_index') }}">Administration</a>
                         </li>
                     {% endif %}
                     {% if is_granted('ROLE_EMPLOYEE') %}
-                        <li class="nav-item">
-                            <a class="nav-link navlinks" href="{{ path('app_intranet') }}">Intranet</a>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle navlinks "    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               Intranet
+                            </a>
+                            <ul class="dropdown-menu navlinks">
+                                <li class="nav-item">
+                                    <a class="dropdown-item navlinks" href="{{ path('app_admin_index') }}">Mes Clients</a>
+                                </li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_category_index') }}">Catlaogues</a></li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_product_index') }}">Produits</a></li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_images_index') }}">Images</a></li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_admin_order_index') }}">Commandes</a></li>
+                                
+
+                            </ul>
                         </li>
+                        
                     {% endif %}
-                    {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link navlinks" href="{{ path('user_edit')}}">Mon Profil</a>
+                    
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle navlinks "    href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Mon Espace
+                            </a>
+                            <ul class="dropdown-menu navlinks">
+                                <li class="nav-item">
+                                    <a class="dropdown-item navlinks" href="{{ path('user_edit')}}">Coordonnées</a>
+                                </li>
+                                <li><a class="dropdown-item navlinks" href="{{ path('app_order')}}">Commandes</a></li>
+                                {% if is_granted('ROLE_EMPLOYEE') %}
+                                <li><a class="dropdown-item navlinks" href="{{ path('message_index')}}">Message</a></li>
+                                {% else %}
+                                <li><a class="dropdown-item navlinks" href="{{ path('message_conversation')}}">Message</a></li>
+                                {% endif %}
+
+                            </ul>
                         </li>
-                    {% endif %}
+                        
+                    
                 </ul>
                 <form class="d-flex mx-4">
                     {% if app.user %}
@@ -70,6 +115,7 @@
                     <a  href="{{ path('app_logout') }}">
                         <i class="bi bi-box-arrow-right icone"></i> 
                     </a>
+
                     {% else %}
                     <a href="{{ path('app_login') }}" >
                         <i class="bi bi-person-circle icone"></i>
@@ -78,6 +124,7 @@
                     <a href="{{ path('cart_index') }}" >
                         <i class="bi bi-cart icone" ></i>
                     </a>
+                    
                 </form>
             </div>
         </div>

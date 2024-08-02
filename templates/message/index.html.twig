@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block body %}
+    <h1>Messages reçus</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>De</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for message in messages %}
+            {% if (not(message.isIsRead) ) %}
+                <tr>
+                    <td>{{ message.sender.email }}</td>
+                    <td>{{ message.content | slice(0, 50) }}...</td>
+                    <td>{{ message.createdAt ? message.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>
+                        <a href="{{ path('message_read', {'id': message.id}) }}">Marquer Lu</a>
+                        <a href="{{ path('message_conversation_employee', {'userId':message.sender.id}) }}">Répondre</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% else %}
+            <tr>
+                <td colspan="4">Aucun message trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
