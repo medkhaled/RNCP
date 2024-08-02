@@ -35,5 +35,4 @@ php bin/console doctrine:fixtures:load
 ## Additional Information
 - To obtain your [Stripe](https://stripe.com) API keys, you need to create a Stripe account and then access the API keys from the Stripe dashboard.
 - For detailed documentation, refer to the [Symfony Documentation](https://symfony.com/doc/current/index.html).
-- For issues and contributions, please refer to the [GitHub repository](https://github.com/medkhaled/RNCP).
-```
+
