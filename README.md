@@ -30,10 +30,3 @@ Open the `.env` file and update the necessary configuration settings, such as da
 - For issues and contributions, please refer to the [GitHub repository](https://github.com/medkhaled/RNCP).
 ```
 
-### Markdown Enhancements
-
-1. **Header**: Added a header with the project name.
-2. **Getting Started Section**: Created a "Getting Started" section with step-by-step instructions.
-3. **Syntax Highlighting**: Used triple backticks for code blocks to enable syntax highlighting.
-4. **Additional Information**: Added a section for additional information with links to the Symfony documentation and the GitHub repository.
-
